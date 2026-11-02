@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD Demo (HTML Only)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    input, button { margin: 5px; padding: 5px; }
+    #output { margin-top: 20px; white-space: pre; background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>🚀 CRUD Demo (No Server, Just HTML+JS)</h2>
+
+  <h3>Create User</h3>
+  <input id="createName" placeholder="Enter name" />
+  <button onclick="createUser()">Create</button>
+
+  <h3>Get All Users</h3>
+  <button onclick="getUsers()">Get Users</button>
+
+  <h3>Get User by ID</h3>
+  <input id="getId" type="number" placeholder="Enter ID" />
+  <button onclick="getUser()">Get</button>
+
+  <h3>Update User</h3>
+  <input id="updateId" type="number" placeholder="Enter ID" />
+  <input id="updateName" placeholder="New name" />
+  <button onclick="updateUser()">Update</button>
+
+  <h3>Delete User</h3>
+  <input id="deleteId" type="number" placeholder="Enter ID" />
+  <button onclick="deleteUser()">Delete</button>
+
+  <div id="output">Output will appear here...</div>
+
+  <script>
+    // In-memory "database"
+    let users = [];
+    let idCounter = 1;
+
+    function showOutput(data) {
+      document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+    }
+
+    function createUser() {
+      const name = document.getElementById("createName").value.trim();
+      if (!name) return showOutput({ error: "Name required" });
+      const user = { id: idCounter++, name };
+      users.push(user);
+      showOutput(user);
+    }
+
+    function getUsers() {
+      showOutput(users);
+    }
+
+    function getUser() {
+      const id = parseInt(document.getElementById("getId").value);
+      const user = users.find(u => u.id === id);
+      if (!user) return showOutput({ error: "User not found" });
+      showOutput(user);
+    }
+
+    function updateUser() {
+      const id = parseInt(document.getElementById("updateId").value);
+      const newName = document.getElementById("updateName").value.trim();
+      const user = users.find(u => u.id === id);
+      if (!user) return showOutput({ error: "User not found" });
+      if (!newName) return showOutput({ error: "New name required" });
+      user.name = newName;
+      showOutput(user);
+    }
+
+    function deleteUser() {
+      const id = parseInt(document.getElementById("deleteId").value);
+      const index = users.findIndex(u => u.id === id);
+      if (index === -1) return showOutput({ error: "User not found" });
+      const deleted = users.splice(index, 1);
+      showOutput(deleted[0]);
+    }
+  </script>
+</body>
+</html>

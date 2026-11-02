@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Function Types</title>
+</head>
+<body>
+    <h1>Open the Console to See Output</h1>
+    <script>
+        // Function Declaration
+        function calculateArea(length, width) {
+            return length * width;
+        }
+
+        // Function Expression (Definition)
+        const calculatePerimeter = function(length, width) {
+            return 2 * (length + width);
+        };
+
+        // Arrow Function
+        const isSquare = (length, width) => length === width;
+
+        // Values
+        let length = 10;
+        let width = 5;
+
+        // Output to console
+        console.log("Rectangle Dimensions: Length =", length, ", Width =", width);
+        console.log("Area:", calculateArea(length, width));
+        console.log("Perimeter:", calculatePerimeter(length, width));
+        console.log("Is it a square?", isSquare(length, width));
+    </script>
+</body>
+</html>
